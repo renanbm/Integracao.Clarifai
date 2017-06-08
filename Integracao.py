@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
-
 from clarifai.rest import ClarifaiApp
 from clarifai.rest import Image as CLImage
-
 from helpers import Image_Helper
 
 
@@ -25,6 +23,10 @@ class ClarifaiDemographics(ClarifaiBase):
     def __init__(self):
         super(ClarifaiDemographics, self).__init__()
         self.model = self.instance.models.get('demographics')
+
+    def predict_demographics_by_image(self, imageBase64):
+        image = CLImage(base64=imageBase64)
+        return self.model.predict([image])
 
     def predict_demographics_by_url(self, url):
         image = CLImage(url=url)
